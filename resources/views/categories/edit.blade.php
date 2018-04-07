@@ -7,14 +7,19 @@
 
             {!! Form::model($category, ['route' => ['categories.update', 'category' => $category->id], 'class' => 'form',
                 'method' => 'PUT']) !!}
-            <div class="form-group">
-                {!! Form::label('name', 'Nome') !!}
-                {!! Form::text('name', null, ['class' => 'form-control']) !!}
-            </div>
 
-            <div class="form-group">
+            {!! Form::open(['route' => 'categories.store', 'class' => 'form']) !!}
+
+            {!! Html::openFormGroup('name', $errors) !!}
+            {!! Form::label('name', 'Nome', ['class' => 'control-label']) !!}
+            {!! Form::text('name', null, ['class' => 'form-control']) !!}
+            {!! Form::error('name', $errors) !!}
+            {!! Html::closeFormGroup() !!}
+
+            {!! Html::openFormGroup() !!}
                 {!! Form::submit('Salvar Categoria', ['class' => 'btn btn-primary']) !!}
-            </div>
+            {!! Html::closeFormGroup() !!}
+
             {!! Form::close() !!}
         </div>
     </div>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Book;
-use Illuminate\Http\Request;
+use Auth;
+use App\Http\Requests\BookRequest;
+
 
 class BooksController extends Controller
 {
@@ -34,9 +36,12 @@ class BooksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookRequest $request)
     {
-        Book::create($request->all());
+        $userid = Auth::user()->id;
+        Book::create(['title' => $request->input('title'), 'subtitle'=> $request->input('subtitle'),
+                     'price' => $request->input('price'), 'user_id' => $userid]);
+
         return redirect()->route('books.index');
     }
 
@@ -69,16 +74,13 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, Book $book)
     {
-        if (!($book = Book::find($id))) {
-            throw  new ModelNotFoundException('Livro não foi encontrada.');
+        $userid = Auth::user()->id;
+        if ($userid == $request->input('user_id')) {
+            $book->fill($request->all());
+            $book->save();
         }
-
-        $data = $request->all();
-        $book->fill($data);
-        $book->save();
-
         return redirect()->route('books.index');
     }
 

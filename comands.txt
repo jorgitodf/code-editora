@@ -23,6 +23,7 @@ php artisan route:list
 https://laravelcollective.com/
 composer require "laravelcollective/html":"^5.3.0"
 
+php artisan make:request BookRequest
 
 
 

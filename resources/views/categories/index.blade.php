@@ -21,7 +21,7 @@
                             <td>{{$category->id}}</td>
                             <td>{{$category->name}}</td>
                             <td>
-                                <ul>
+                                <ul class="list-inline">
                                     <li><a href="{{route('categories.edit', ['category' => $category->id])}}">Editar</a></li>
                                     <li>
                                         <?php $deleteForm = "delete-form-{$loop->index}"; ?>

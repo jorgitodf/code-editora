@@ -7,25 +7,33 @@
 
             {!! Form::model($book, ['route' => ['books.update', 'book' => $book->id], 'class' => 'form',
                 'method' => 'PUT']) !!}
-            <div class="form-group">
-                {!! Form::label('title', 'Título') !!}
+
+            {!! Form::open(['route' => 'books.store', 'class' => 'form']) !!}
+
+            {!! Html::openFormGroup('title', $errors) !!}
+                {!! Form::label('title', 'Título', ['class' => 'control-label']) !!}
                 {!! Form::text('title', null, ['class' => 'form-control']) !!}
-            </div>
+                {!! Form::error('title', $errors) !!}
+            {!! Html::closeFormGroup() !!}
 
-            <div class="form-group">
-                {!! Form::label('subtitle', 'Sub-Título') !!}
+            {!! Html::openFormGroup('subtitle', $errors) !!}
+                {!! Form::label('subtitle', 'Sub-Título', ['class' => 'control-label']) !!}
                 {!! Form::text('subtitle', null, ['class' => 'form-control']) !!}
-            </div>
+                {!! Form::error('subtitle', $errors) !!}
+            {!! Html::closeFormGroup() !!}
 
-            <div class="form-group">
-                {!! Form::label('price', 'Preço') !!}
+            {!! Html::openFormGroup('price', $errors) !!}
+                {!! Form::label('price', 'Preço', ['class' => 'control-label']) !!}
                 {!! Form::text('price', null, ['class' => 'form-control']) !!}
-            </div>
+                {!! Form::error('price', $errors) !!}
+            {!! Html::closeFormGroup() !!}
 
-            <div class="form-group">
-                {!! Form::submit('Salvar Livro', ['class' => 'btn btn-primary']) !!}
-            </div>
+            {!! Html::openFormGroup() !!}
+                {!! Form::submit('Salvar Categoria', ['class' => 'btn btn-primary']) !!}
+            {!! Html::closeFormGroup() !!}
+
             {!! Form::close() !!}
+
         </div>
     </div>
 @endsection

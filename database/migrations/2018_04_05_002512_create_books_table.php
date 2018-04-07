@@ -18,6 +18,8 @@ class CreateBooksTable extends Migration
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->float('price', 8,2)->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

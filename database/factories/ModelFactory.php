@@ -23,5 +23,6 @@ $factory->define(App\Book::class, function (Faker\Generator $faker) {
         'title' => ucfirst($faker->word),
         'subtitle' => ucfirst($faker->word),
         'price' => $faker->randomNumber(3),
+        'user_id' => $faker->numberBetween($min = 1, $max = 1),
     ];
 });
