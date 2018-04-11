@@ -16,7 +16,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::query()->paginate(10);
+        $books = Book::query()->paginate(6);
         return view('books.index', compact('books'));
     }
 
@@ -42,7 +42,9 @@ class BooksController extends Controller
         Book::create(['title' => $request->input('title'), 'subtitle'=> $request->input('subtitle'),
                      'price' => $request->input('price'), 'user_id' => $userid]);
 
-        return redirect()->route('books.index');
+        $url = $request->get('redirect_to', route('books.index'));
+        $request->session()->flash('message', 'Livro Cadastrado com Sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -81,7 +83,9 @@ class BooksController extends Controller
             $book->fill($request->all());
             $book->save();
         }
-        return redirect()->route('books.index');
+        $url = $request->get('redirect_to', route('books.index'));
+        $request->session()->flash('message', 'Livro Alterado com Sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -93,6 +97,7 @@ class BooksController extends Controller
     public function destroy(Book $book)
     {
         $book->delete();
-        return redirect()->route('books.index');
+        \Session::flash('message', 'Livro Excluído com Sucesso!');
+        return redirect()->to(\URL::previous());
     }
 }

@@ -25,5 +25,9 @@ composer require "laravelcollective/html":"^5.3.0"
 
 php artisan make:request BookRequest
 
+composer require patricktalmadge/bootstrapper:~5.9.1
+http://bootstrapper.patrickrosemusic.co.uk/components
+php artisan ide-helper:generate
+
 
 
