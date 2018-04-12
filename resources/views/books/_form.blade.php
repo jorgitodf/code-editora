@@ -11,6 +11,12 @@
     {!! Form::error('subtitle', $errors) !!}
 {!! Html::closeFormGroup() !!}
 
+{!! Html::openFormGroup('autor', $errors) !!}
+{!! Form::label('autor', 'Autor', ['class' => 'control-label']) !!}
+{!! Form::text('autor', null, ['class' => 'form-control']) !!}
+{!! Form::error('autor', $errors) !!}
+{!! Html::closeFormGroup() !!}
+
 {!! Html::openFormGroup('price', $errors) !!}
     {!! Form::label('price', 'Preço', ['class' => 'control-label']) !!}
     {!! Form::text('price', null, ['class' => 'form-control']) !!}

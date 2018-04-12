@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -12,17 +12,21 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Category::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => ucfirst($faker->unique()->word),
     ];
 });
 
-$factory->define(App\Book::class, function (Faker\Generator $faker) {
+$factory->define(\App\Models\Book::class, function (Faker\Generator $faker) {
+
+    $repository = app(\App\Repositories\UserRepository::class);
+    $userId = $repository->all()->random()->id;
+
     return [
         'title' => ucfirst($faker->word),
-        'subtitle' => ucfirst($faker->word),
-        'price' => $faker->randomNumber(3),
-        'user_id' => $faker->numberBetween($min = 1, $max = 1),
+        'subtitle' => $faker->sentence(3),
+        'price' => $faker->randomFloat(2, 10, 100),
+        'user_id' => $userId
     ];
 });

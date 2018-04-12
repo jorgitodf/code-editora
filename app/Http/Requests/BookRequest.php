@@ -13,6 +13,7 @@ class BookRequest extends FormRequest
      */
     public function authorize()
     {
+
         return true;
     }
 
@@ -28,7 +29,7 @@ class BookRequest extends FormRequest
         return [
             'title' => "required|max:200|required:books,title,$id",
             'subtitle' => "required|max:200",
-            'price' => "required|max:200"
+            'price' => "required|numeric"
         ];
     }
 

@@ -1,15 +1,22 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model implements TableInterface
+class Book extends Model implements TableInterface
 {
     protected $fillable = [
-        'name'
+        'title',
+        'subtitle',
+        'price',
+        'user_id'
     ];
+
+    public function author() {
+        return $this->belongsTo(User::class);
+    }
 
     /**
      * A list of headers to be used when a table is displayed
@@ -18,7 +25,7 @@ class Category extends Model implements TableInterface
      */
     public function getTableHeaders()
     {
-        return ['Id', 'Nome'];
+        return ['Id', 'Título', 'Subtítulo', 'Autor', 'Preço'];
     }
 
     /**
@@ -33,8 +40,14 @@ class Category extends Model implements TableInterface
         switch ($header) {
             case 'Id':
                 return $this->id;
-            case 'Nome':
-                return $this->name;
+            case 'Título':
+                return $this->title;
+            case 'Subtítulo':
+                return $this->subtitle;
+            case 'Autor':
+                return $this->author->name;
+            case 'Preço':
+                return 'R$ '. number_format($this->price,2,",",".");
         }
         return $this->$header;
     }

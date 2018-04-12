@@ -29,5 +29,18 @@ composer require patricktalmadge/bootstrapper:~5.9.1
 http://bootstrapper.patrickrosemusic.co.uk/components
 php artisan ide-helper:generate
 
+composer require prettus/l5-repository
+php artisan vendor:publish --provider="Prettus\Repository\Providers\RepositoryServiceProvider"
+
+php artisan make:repository Book
+php artisan make:entity Teste
+php artisan make:bindings Book
+
+Registrar no app.php
+* Application Service Providers...
+\App\Providers\RepositoryServiceProvider::class,
+
+composer dumpautoload
+
 
 
