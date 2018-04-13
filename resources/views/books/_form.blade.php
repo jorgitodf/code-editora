@@ -11,10 +11,10 @@
     {!! Form::error('subtitle', $errors) !!}
 {!! Html::closeFormGroup() !!}
 
-{!! Html::openFormGroup('autor', $errors) !!}
-{!! Form::label('autor', 'Autor', ['class' => 'control-label']) !!}
-{!! Form::text('autor', null, ['class' => 'form-control']) !!}
-{!! Form::error('autor', $errors) !!}
+{!! Html::openFormGroup('user_id', $errors) !!}
+{!! Form::label('user_id', 'Autor', ['class' => 'control-label']) !!}
+{!! Form::text('user_id', null, ['class' => 'form-control']) !!}
+{!! Form::error('user_id', $errors) !!}
 {!! Html::closeFormGroup() !!}
 
 {!! Html::openFormGroup('price', $errors) !!}

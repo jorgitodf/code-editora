@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoryRequest;
 use App\Repositories\CategoryRepository;
+use Illuminate\Http\Request;
 
 
 class CategoriesController extends Controller
@@ -25,11 +26,12 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //$categories = Category::query()->paginate(6);
+        $search = $request->get('search');
         $categories = $this->repository->paginate(6);
-        return view('categories.index', compact('categories'));
+        return view('categories.index', compact('categories','search'));
     }
 
     /**

@@ -42,5 +42,6 @@ Registrar no app.php
 
 composer dumpautoload
 
+php artisan make:criteria FindByAutor
 
-
+git push -u origin master

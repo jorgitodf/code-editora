@@ -6,13 +6,14 @@ use App\Http\Requests\BookUpdateRequest;
 use App\Models\Book;
 use App\Http\Requests\BookRequest;
 use App\Repositories\BookRepository;
+use Illuminate\Http\Request;
 
 
 class BooksController extends Controller
 {
 
     /**
-     * @var CategoryRepository
+     * @var BookRepository
      */
     private $repository;
 
@@ -26,10 +27,11 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->get('search');
         $books = $this->repository->paginate(6);
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books','search'));
     }
 
     /**
@@ -53,7 +55,10 @@ class BooksController extends Controller
         /* $userid = Auth::user()->id;
         Book::create(['title' => $request->input('title'), 'subtitle'=> $request->input('subtitle'),
                      'price' => $request->input('price'), 'user_id' => $userid]); */
-        Book::create($request->allFiles());
+
+        $data = $request->all();
+        $data['user_id'] = \Auth::user()->id;
+        $this->repository->create($data);
         $url = $request->get('redirect_to', route('books.index'));
         $request->session()->flash('message', 'Livro Cadastrado com Sucesso!');
         return redirect()->to($url);
@@ -88,16 +93,15 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BookUpdateRequest $request, Book $book)
+    public function update(BookUpdateRequest $request, $id)
     {
         /*$userid = Auth::user()->id;
         if ($userid == $request->input('user_id')) {
             $book->fill($request->all());
             $book->save();
         } */
-
-        $book->fill($request->all());
-        $book->save();
+        $data = $request->except(['user_id']);
+        $this->repository->update($data, $id);
         $url = $request->get('redirect_to', route('books.index'));
         $request->session()->flash('message', 'Livro Alterado com Sucesso!');
         return redirect()->to($url);
@@ -109,9 +113,9 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy($id)
     {
-        $book->delete();
+        $this->repository->delete($id);
         \Session::flash('message', 'Livro Excluído com Sucesso!');
         return redirect()->to(\URL::previous());
     }
