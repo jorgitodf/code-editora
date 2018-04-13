@@ -7,6 +7,7 @@ use App\Models\Book;
 use App\Http\Requests\BookRequest;
 use App\Repositories\BookRepository;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class BooksController extends Controller
@@ -100,11 +101,21 @@ class BooksController extends Controller
             $book->fill($request->all());
             $book->save();
         } */
-        $data = $request->except(['user_id']);
-        $this->repository->update($data, $id);
-        $url = $request->get('redirect_to', route('books.index'));
-        $request->session()->flash('message', 'Livro Alterado com Sucesso!');
-        return redirect()->to($url);
+
+        try {
+            $data = $request->except(['user_id']);
+            $this->repository->update($data, $id);
+            $url = $request->get('redirect_to', route('books.index'));
+            $request->session()->flash('message', 'Livro Alterado com Sucesso!');
+            return redirect()->to($url);
+        } catch (QueryException $e) {
+            return ['error'=>true, 'Livro não pode ser editado pois existe um ou mais clientes vinculados a ele.'];
+        } catch (ModelNotFoundException $e) {
+            $message = 'Livro não encontrado!';
+            return redirect()->to('errors.error_filed')->with('message', $message);
+        } catch (\Exception $e) {
+            return ['error'=>true, 'Ocorreu algum erro ao editar o Livro.'];
+        }
     }
 
     /**
@@ -115,8 +126,16 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        $this->repository->delete($id);
-        \Session::flash('message', 'Livro Excluído com Sucesso!');
-        return redirect()->to(\URL::previous());
+        try {
+            $this->repository->delete($id);
+            \Session::flash('message', 'Livro Excluído com Sucesso!');
+            return redirect()->to(\URL::previous());
+        } catch (QueryException $e) {
+            return ['error'=>true, 'Projeto não pode ser apagado pois existe um ou mais clientes vinculados a ele.'];
+        } catch (ModelNotFoundException $e) {
+            return ['error'=>true, 'Projeto não encontrado.'];
+        } catch (\Exception $e) {
+            return ['error'=>true, 'Ocorreu algum erro ao excluir o projeto.'];
+        }
     }
 }

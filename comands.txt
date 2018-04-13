@@ -45,3 +45,10 @@ composer dumpautoload
 php artisan make:criteria FindByAutor
 
 git push -u origin master
+
+git clone git@github.com:seuprojeto
+cd seuprojeto
+composer install --no-scripts
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed

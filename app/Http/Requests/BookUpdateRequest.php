@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 
 use App\Repositories\BookRepository;
 
-class BookUpdateRequest extends BookRequestRequest
+class BookUpdateRequest extends BookRequest
 {
     /**
      * @var BookRepository
