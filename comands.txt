@@ -52,3 +52,5 @@ composer install --no-scripts
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
+
+php artisan make:migration create_book_category_table --create=book_category

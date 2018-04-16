@@ -11,14 +11,15 @@
     {!! Form::error('subtitle', $errors) !!}
 {!! Html::closeFormGroup() !!}
 
-{!! Html::openFormGroup('user_id', $errors) !!}
-{!! Form::label('user_id', 'Autor', ['class' => 'control-label']) !!}
-{!! Form::text('user_id', null, ['class' => 'form-control']) !!}
-{!! Form::error('user_id', $errors) !!}
-{!! Html::closeFormGroup() !!}
-
 {!! Html::openFormGroup('price', $errors) !!}
     {!! Form::label('price', 'Preço', ['class' => 'control-label']) !!}
     {!! Form::text('price', null, ['class' => 'form-control']) !!}
     {!! Form::error('price', $errors) !!}
+{!! Html::closeFormGroup() !!}
+
+{!! Html::openFormGroup(['categories', 'categories.*'], $errors) !!}
+    {!! Form::label('categories[]', 'Categoria', ['class' => 'control-label']) !!}
+    {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true]) !!}
+    {!! Form::error('categories', $errors) !!}
+    {!! Form::error('categories.*', $errors) !!}
 {!! Html::closeFormGroup() !!}

@@ -18,6 +18,10 @@ class Book extends Model implements TableInterface
         return $this->belongsTo(User::class, "user_id");
     }
 
+    public function categories() {
+        return $this->belongsToMany(Category::class);
+    }
+
     /**
      * A list of headers to be used when a table is displayed
      *
@@ -51,4 +55,5 @@ class Book extends Model implements TableInterface
         }
         return $this->$header;
     }
+
 }

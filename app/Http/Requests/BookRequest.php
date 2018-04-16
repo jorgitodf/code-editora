@@ -28,18 +28,32 @@ class BookRequest extends FormRequest
         $id = $book ? $book->id:NULL;
         return [
             'title' => "required|max:200|required:books,title,$id",
-            'subtitle' => "required|max:200",
-            'price' => "required|numeric"
+            'subtitle' => 'required|max:200',
+            'price' => 'required|numericf',
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id'
         ];
     }
 
     public function messages()
     {
-        return [
-            'required' => 'O :attribute do Título do Livro é obrigratório!',
-            'required' => 'O :attribute do Sub-Título do Livro é obrigratório!',
-            'required' => 'O :attribute do Livro é obrigratório!',
+        $result = [
+            'required' => ':attribute do Livro é obrigratório!',
         ];
+        $categories = $this->get('categories', []);
+        $count = count($categories);
+        if (is_array($categories) && $count >0) {
+            foreach (range(0, $count-1) as $value) {
+                $field = \Lang::get('validation.attributes.categories_*', [
+                   'num' => $value + 1
+                ]);
+                $message = \Lang::get('validation.exists', [
+                    'attribute' => $field
+                ]);
+                $result["categories.$value.exists"] = $message;
+            }
+        }
+        return $result;
     }
 
     public function attributes()
@@ -47,7 +61,8 @@ class BookRequest extends FormRequest
         return [
             'title' => 'Título',
             'subtitle' => 'Sub-Título',
-            'price' => 'Preço'
+            'price' => 'Preço',
+            'categories' => 'Categoria'
         ];
     }
 }

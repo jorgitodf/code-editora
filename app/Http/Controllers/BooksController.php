@@ -6,6 +6,7 @@ use App\Http\Requests\BookUpdateRequest;
 use App\Models\Book;
 use App\Http\Requests\BookRequest;
 use App\Repositories\BookRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -18,9 +19,10 @@ class BooksController extends Controller
      */
     private $repository;
 
-    public function __construct(BookRepository $repository)
+    public function __construct(BookRepository $repository, CategoryRepository $categoryRepository)
     {
         $this->repository = $repository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -42,7 +44,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $categories = $this->categoryRepository->lists('name', 'id');
+        return view('books.create', compact('categories'));
     }
 
     /**
