@@ -29,7 +29,7 @@ class BookRequest extends FormRequest
         return [
             'title' => "required|max:200|required:books,title,$id",
             'subtitle' => 'required|max:200',
-            'price' => 'required|numericf',
+            'price' => 'required|numeric',
             'categories' => 'required|array',
             'categories.*' => 'exists:categories,id'
         ];
