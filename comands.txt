@@ -56,6 +56,7 @@ php artisan migrate --seed
 php artisan make:migration create_book_category_table --create=book_category
 
 git push -u origin master
+php artisan make:migration add_soft_delete_to_cateogries --table=categories
 
 {!! Html::openFormGroup('user_id', $errors) !!}
 {!! Form::label('user_id', 'Autor', ['class' => 'control-label']) !!}

@@ -26,10 +26,26 @@
             if (Auth::check()) {
                 $links = Navigation::links([
                     [
-                       'link' => route('categories.index'), 'title' => 'Categoria'
+                       'Categoria',
+                        [
+                            [
+                                'link' => route('categories.index'), 'title' => 'Listar'
+                            ],
+                            [
+                                'link' => route('trashed.categories.index'), 'title' => 'Lixeira'
+                            ]
+                        ]
                     ],
                     [
-                        'link' => route('books.index'), 'title' => 'Livro'
+                        'Livro',
+                        [
+                            [
+                                'link' => route('books.index'), 'title' => 'Listar'
+                            ],
+                            [
+                                'link' => route('trashed.books.index'), 'title' => 'Lixeira'
+                            ]
+                        ]
                     ]
                 ]);
                 $logout = Navigation::links([

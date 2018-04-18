@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Criteria\CriteriaOnlyTrashedTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\CategoryRepository;
@@ -16,6 +17,7 @@ use App\Validators\CategoryValidator;
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
     use BaseRepositoryTrait;
+    use CriteriaOnlyTrashedTrait;
 
     protected $fieldSearchable = [
         'name' => 'like'

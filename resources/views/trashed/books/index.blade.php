@@ -3,8 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Listagem de Livros</h3>
-            {!! Button::primary('Novo Livro')->asLinkTo(route('books.create')) !!}
+            <h3>Lixeira de Livros</h3>
         </div><br/>
         <div class="row">
             {!! Form::model([compact('search')], ['class' => 'form-inline', 'method' => 'GET']) !!}
@@ -23,14 +22,12 @@
                 $form = Form::open(['route' => ['books.destroy', 'book' => $book->id], 'method' => 'DELETE',
                 'id' => $deleteForm, 'style' => 'display:none']).
                 Form::close();
-                $anchorDestroy = Button::link('Ir para Lixeira')
+                $anchorDestroy = Button::link('Excluir')
                     ->asLinkTo(route('books.destroy', ['book' => $book->id]))
                     ->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit();"
                     ]);
 
                 return "<ul class=\"list-inline\">".
-                                "<li>".Button::link('Editar')->asLinkTo(route('books.edit', ['book' => $book->id]))."</li>" .
-                                "<li>|</li>".
                                 "<li>".$anchorDestroy."</li>".
                            "</ul>".
                            $form;
