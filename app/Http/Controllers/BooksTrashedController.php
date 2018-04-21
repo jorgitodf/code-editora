@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Criteria\FindOnlyTrashedCriteria;
 use App\Repositories\BookRepository;
 use Illuminate\Http\Request;
 
@@ -34,4 +33,20 @@ class BooksTrashedController extends Controller
         return view('trashed.books.index', compact('books','search'));
     }
 
+    public function show($id)
+    {
+        $this->repository->onlyTrashed();
+        $book = $this->repository->find($id);
+        return view('trashed.books.show', compact('book'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->repository->onlyTrashed();
+        $this->repository->restore($id);
+
+        $url = $request->get('redirect_to', route('trashed.books.index'));
+        $request->session()->flash('message', 'Livro Restaurado com Sucesso!');
+        return redirect()->to($url);
+    }
 }

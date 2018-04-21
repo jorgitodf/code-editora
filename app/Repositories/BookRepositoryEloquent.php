@@ -2,10 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Criteria\CriteriaOnlyTrashedTrait;
+use App\Criteria\CriteriaTrashedTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\BookRepository;
 use App\Models\Book;
 use App\Validators\BookValidator;
 
@@ -17,7 +16,8 @@ use App\Validators\BookValidator;
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
 
-    use CriteriaOnlyTrashedTrait;
+    use CriteriaTrashedTrait;
+    use RepositoryRestoreTrait;
 
     protected $fieldSearchable = [
         'title' => 'like',
@@ -43,5 +43,9 @@ class BookRepositoryEloquent extends BaseRepository implements BookRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function withTrashed()
+    {
+        // TODO: Implement withTrashed() method.
+    }
 }

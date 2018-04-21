@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Criteria\CriteriaOnlyTrashedinterface;
+use App\Criteria\CriteriaTrashedinterface;
 use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
@@ -11,7 +11,7 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface BookRepository extends RepositoryInterface, RepositoryCriteriaInterface, CriteriaOnlyTrashedinterface
+interface BookRepository extends RepositoryInterface, RepositoryCriteriaInterface, CriteriaTrashedinterface, RepositoryRestoreInterface
 {
     //
 }

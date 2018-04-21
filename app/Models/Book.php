@@ -26,7 +26,7 @@ class Book extends Model implements TableInterface
     }
 
     public function categories() {
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTrashed();
     }
 
     /**

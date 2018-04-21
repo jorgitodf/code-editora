@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Criteria\CriteriaOnlyTrashedTrait;
+use App\Criteria\CriteriaTrashedTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\CategoryRepository;
@@ -17,7 +17,8 @@ use App\Validators\CategoryValidator;
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
     use BaseRepositoryTrait;
-    use CriteriaOnlyTrashedTrait;
+    use CriteriaTrashedTrait;
+
 
     protected $fieldSearchable = [
         'name' => 'like'
@@ -42,5 +43,20 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    /**
+     * @param $column
+     * @param null $key
+     * @return mixed
+     */
+    public function listsWithMutators($column, $key = null)
+    {
+        $collection = $this->all();
+        return $collection->pluck($column, $key);
+    }
+
+    public function withTrashed()
+    {
+        // TODO: Implement withTrashed() method.
+    }
 }

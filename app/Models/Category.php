@@ -20,6 +20,12 @@ class Category extends Model implements TableInterface
         return $this->belongsToMany(Book::class);
     }
 
+    //Mutator
+    public function getNameTrashedAttribute()
+    {
+        return $this->trashed() ? "{$this->name} (Inativa)" : $this->name;
+    }
+
     /**
      * A list of headers to be used when a table is displayed
      *

@@ -13,12 +13,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::resource('books', 'BooksController');
     Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function() {
         Route::resource('books', 'BooksTrashedController', [
-            'except' => ['show', 'create', 'store', 'editu', 'pdate', 'destroy']
+            'except' => ['create', 'store', 'edit', 'destroy']
         ]);
     });
     Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function() {
         Route::resource('categories', 'CategoriesTrashedController', [
-            'except' => ['show', 'create', 'store', 'editu', 'pdate', 'destroy']
+            'except' => ['show', 'create', 'store', 'edit', 'update', 'destroy']
         ]);
     });
 });

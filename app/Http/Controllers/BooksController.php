@@ -85,9 +85,20 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
-        $categories = $this->categoryRepository->lists('name', 'id');
+        try {
+            $book = $this->repository->find($id);
+
+        } catch (ModelNotFoundException $e) {
+            $message = "Erro 404: Livro não existe no Banco de Dados";
+            return view('errors.index', compact('message'));
+        } catch (\Exception $e) {
+            $message = $e;
+            return view('errors.index', compact('message'));
+        }
+        $this->categoryRepository->withTrashed();
+        $categories = $this->categoryRepository->listsWithMutators('name_trashed', 'id');
         return view('books.edit', compact('book', 'categories'));
     }
 
@@ -105,21 +116,11 @@ class BooksController extends Controller
             $book->fill($request->all());
             $book->save();
         } */
-
-        try {
-            $data = $request->except(['user_id']);
-            $this->repository->update($data, $id);
-            $url = $request->get('redirect_to', route('books.index'));
-            $request->session()->flash('message', 'Livro Alterado com Sucesso!');
-            return redirect()->to($url);
-        } catch (QueryException $e) {
-            return ['error'=>true, 'Livro não pode ser editado pois existe um ou mais clientes vinculados a ele.'];
-        } catch (ModelNotFoundException $e) {
-            $message = 'Livro não encontrado!';
-            return redirect()->to('errors.error_filed')->with('message', $message);
-        } catch (\Exception $e) {
-            return ['error'=>true, 'Ocorreu algum erro ao editar o Livro.'];
-        }
+        $data = $request->except(['user_id']);
+        $this->repository->update($data, $id);
+        $url = $request->get('redirect_to', route('books.index'));
+        $request->session()->flash('message', 'Livro Alterado com Sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -137,7 +138,10 @@ class BooksController extends Controller
         } catch (QueryException $e) {
             return ['error'=>true, 'Projeto não pode ser apagado pois existe um ou mais clientes vinculados a ele.'];
         } catch (ModelNotFoundException $e) {
-            return ['error'=>true, 'Projeto não encontrado.'];
+            $message = 'Livro não encontrado!';
+            return view('errors.error_filed', compact('message'));
+            //return redirect()->to('errors.error_filed')->with('message', $message);
+            //return ['error'=>true, 'Projeto não encontrado.'];
         } catch (\Exception $e) {
             return ['error'=>true, 'Ocorreu algum erro ao excluir o projeto.'];
         }
