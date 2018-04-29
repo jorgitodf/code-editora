@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use CodeEduBook\Repositories\CategoryRepository;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Models\User;

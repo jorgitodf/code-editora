@@ -52,11 +52,22 @@ composer install --no-scripts
 cp .env.example .env
 php artisan key:generate
 php artisan migrate --seed
+composer dumpautoload
+
 
 php artisan make:migration create_book_category_table --create=book_category
 
 git push -u origin master
 php artisan make:migration add_soft_delete_to_cateogries --table=categories
+
+https://github.com/nWidart/laravel-modules
+https://github.com/codeedu/laravel-modules
+php artisan vendor:publish --provider="Nwidart\Modules\LaravelModulesServiceProvider"
+php artisan module:make nome_modulo --plain
+php artisan module:list
+php artisan module:use CodeEduBook
+php artisan module:route-provider
+
 
 {!! Html::openFormGroup('user_id', $errors) !!}
 {!! Form::label('user_id', 'Autor', ['class' => 'control-label']) !!}
