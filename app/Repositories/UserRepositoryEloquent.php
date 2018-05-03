@@ -33,5 +33,19 @@ class UserRepositoryEloquent extends BaseRepository implements CategoryRepositor
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function listsWithMutators($column, $key = null)
+    {
+        // TODO: Implement listsWithMutators() method.
+    }
+
+    public function onlyTrashed()
+    {
+        // TODO: Implement onlyTrashed() method.
+    }
+
+    public function withTrashed()
+    {
+        // TODO: Implement withTrashed() method.
+    }
 }

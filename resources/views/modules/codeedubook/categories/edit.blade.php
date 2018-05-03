@@ -1,4 +1,4 @@
-@extends('resources.views.layouts.app')
+@extends('codeedubook::layouts.app')
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             {!! Form::model($category, ['route' => ['categories.update', 'category' => $category->id], 'class' => 'form',
                 'method' => 'PUT']) !!}
 
-            @include('categories._form')
+            @include('codeedubook::categories._form')
 
             {!! Html::openFormGroup() !!}
                 {!! Button::primary('Salvar Categoria')->submit() !!}
