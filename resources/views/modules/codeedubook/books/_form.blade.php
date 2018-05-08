@@ -18,8 +18,8 @@
 {!! Html::closeFormGroup() !!}
 
 {!! Html::openFormGroup(['categories', 'categories.*'], $errors) !!}
-    {!! Form::label('categories[]', 'Categoria', ['class' => 'control-label']) !!}
+    {!! Form::label('users', 'Categoria', ['class' => 'control-label']) !!}
     {!! Form::select('categories[]', $categories, null, ['class' => 'form-control', 'multiple' => true]) !!}
     {!! Form::error('categories', $errors) !!}
-    {!! Form::error('categories.*', $errors) !!}
+    {!! Form::error('users', $errors) !!}
 {!! Html::closeFormGroup() !!}

@@ -32,7 +32,7 @@ class CategoriesTrashedController extends Controller
         $search = $request->get('search');
         //$this->repository->pushCriteria(FindOnlyTrashedCriteria::class);
         $categories = $this->repository->onlyTrashed()->paginate(6);
-        return view('codeedubook::trashed.categories.index', compact('categories','search'));
+        return view('codeedubook::trashed.users.index', compact('categories','search'));
     }
 
 }

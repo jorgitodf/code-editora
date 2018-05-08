@@ -1,7 +1,7 @@
 <?php
 
 Route::group(['middleware' => 'auth'], function(){
-    Route::resource('categories', 'CategoriesController');
+    Route::resource('users', 'CategoriesController');
     Route::resource('books', 'BooksController');
     Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function() {
         Route::resource('books', 'BooksTrashedController', [
@@ -9,7 +9,7 @@ Route::group(['middleware' => 'auth'], function(){
         ]);
     });
     Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function() {
-        Route::resource('categories', 'CategoriesTrashedController', [
+        Route::resource('users', 'CategoriesTrashedController', [
             'except' => ['show', 'create', 'store', 'edit', 'update', 'destroy']
         ]);
     });

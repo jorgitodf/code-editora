@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Code Editora',
+    'name' => 'Code Pub',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +174,7 @@ return [
         //
 
         \CodeEduBook\Providers\CodeEduBookServiceProvider::class,
+        \CodeEduUser\Providers\CodeEduUserServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -258,6 +259,7 @@ return [
         'Table' => Bootstrapper\Facades\Table::class,
         'Thumbnail' => Bootstrapper\Facades\Thumbnail::class,
         'Module' => \Nwidart\Modules\Facades\Module::class,
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 
     ],
 

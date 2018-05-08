@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <h3>Listagem de Categorias</h3>
-            {!! Button::primary('Nova Categoria')->asLinkTo(route('categories.create')) !!}
+            {!! Button::primary('Nova Categoria')->asLinkTo(route('users')) !!}
         </div><br/>
         <div class="row">
             {!! Form::model([compact('search')], ['class' => 'form-inline', 'method' => 'GET']) !!}

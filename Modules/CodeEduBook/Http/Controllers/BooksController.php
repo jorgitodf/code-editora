@@ -2,10 +2,8 @@
 
 namespace CodeEduBook\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\QueryException;
 use CodeEduBook\Http\Requests\BookUpdateRequest;
-use CodeEduBook\Models\Book;
 use CodeEduBook\Http\Requests\BookRequest;
 use CodeEduBook\Repositories\BookRepository;
 use CodeEduBook\Repositories\CategoryRepository;

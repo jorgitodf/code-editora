@@ -29,10 +29,10 @@
                        'Categoria',
                         [
                             [
-                                'link' => route('categories.index'), 'title' => 'Listar'
+                                'link' => route('users.index'), 'title' => 'Listar'
                             ],
                             [
-                                'link' => route('trashed.categories.index'), 'title' => 'Lixeira'
+                                'link' => route('trashed.users.index'), 'title' => 'Lixeira'
                             ]
                         ]
                     ],

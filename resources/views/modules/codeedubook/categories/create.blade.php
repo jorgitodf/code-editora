@@ -5,9 +5,9 @@
         <div class="row">
             <h3>Nova de Categoria</h3>
 
-            {!! Form::open(['route' => 'categories.store', 'class' => 'form']) !!}
+            {!! Form::open(['route' => 'users', 'class' => 'form']) !!}
 
-                @include('codeedubook::categories._form')
+                @include('users')
 
             {!! Html::openFormGroup() !!}
                 {!! Button::primary('Criar Categoria')->submit() !!}

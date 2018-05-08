@@ -3,7 +3,7 @@
 namespace CodeEduBook\Models;
 
 use CodeEduBook\Models\Category;
-use App\Models\User;
+use CodeEduUser\Models\User;
 use Bootstrapper\Interfaces\TableInterface;
 use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;

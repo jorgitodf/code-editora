@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(\App\Models\User::class, function (Faker\Generator $faker) {
+$factory->define(\CodeEduUser\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -20,7 +20,7 @@ $factory->define(\CodeEduBook\Models\Category::class, function (Faker\Generator 
 
 $factory->define(\CodeEduBook\Models\Book::class, function (Faker\Generator $faker) {
 
-    $repository = app(\App\Repositories\UserRepository::class);
+    $repository = app(\CodeEduUser\Repositories\UserRepository::class);
     $userId = $repository->all()->random()->id;
 
     return [
