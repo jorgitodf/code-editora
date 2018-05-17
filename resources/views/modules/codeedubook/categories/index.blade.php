@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <h3>Listagem de Categorias</h3>
-            {!! Button::primary('Nova Categoria')->asLinkTo(route('users')) !!}
+            {!! Button::primary('Nova Categoria')->asLinkTo(route('categories.create')) !!}
         </div><br/>
         <div class="row">
             {!! Form::model([compact('search')], ['class' => 'form-inline', 'method' => 'GET']) !!}
@@ -20,7 +20,7 @@
                 Table::withContents($categories->items())->condensed()->striped()->bordered()
                 ->callback('Ações', function($field, $category) {
                 $deleteForm = "delete-form-{$category->id}";
-                $form = Form::open(['route' => ['categories.destroy', 'category' => $category->id], 'method' => 'DELETE',
+                    $form = Form::open(['route' => ['categories.destroy', 'category' => $category->id], 'method' => 'DELETE',
                 'id' => $deleteForm, 'style' => 'display:none']).
                 Form::close();
                 $anchorDestroy = Button::link('Excluir')

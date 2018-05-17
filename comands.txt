@@ -68,6 +68,7 @@ php artisan module:list
 php artisan module:use CodeEduBook
 php artisan module:route-provider
 
+php artisan vendor:publish --provider="CodeEduUser\Providers\CodeEduUserServiceProvider" --tag=config --force
 
 {!! Html::openFormGroup('user_id', $errors) !!}
 {!! Form::label('user_id', 'Autor', ['class' => 'control-label']) !!}

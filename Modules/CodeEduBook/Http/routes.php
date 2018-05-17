@@ -1,7 +1,7 @@
 <?php
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::resource('users', 'CategoriesController');
+Route::group(['middleware' => ['auth', config('codeeduuser.middleware.isVerified')]], function(){
+    Route::resource('categories', 'CategoriesController');
     Route::resource('books', 'BooksController');
     Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function() {
         Route::resource('books', 'BooksTrashedController', [
@@ -9,7 +9,7 @@ Route::group(['middleware' => 'auth'], function(){
         ]);
     });
     Route::group(['prefix' => 'trashed', 'as' => 'trashed.'], function() {
-        Route::resource('users', 'CategoriesTrashedController', [
+        Route::resource('categories', 'CategoriesTrashedController', [
             'except' => ['show', 'create', 'store', 'edit', 'update', 'destroy']
         ]);
     });

@@ -2,6 +2,7 @@
 
 namespace CodeEduUser\Http\Controllers;
 
+use CodeEduUser\Http\Requests\UserDeleteRequest;
 use CodeEduUser\Http\Requests\UserRequest;
 use CodeEduUser\Repositories\UserRepository;
 use Illuminate\Http\Request;
@@ -96,7 +97,8 @@ class UsersController extends Controller
     {
         //$user->fill($request->all());
         //$user->save();
-        $this->repository->update($request->all(), $id);
+        $data = $request->except(['password']);
+        $this->repository->update($data, $id);
         $url = $request->get('redirect_to', route('codeeduuser.users.index'));
         $request->session()->flash('message', 'Usuário Alterado com Sucesso!');
         return redirect()->to($url);
@@ -105,13 +107,13 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param UserDeleteRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     //public function destroy(User $user)
-    public function destroy($id)
+    public function destroy(UserDeleteRequest $request, $id)
     {
-        //$user->delete();
         $this->repository->delete($id);
         \Session::flash('message', 'Usuário Excluído com Sucesso!');
         return redirect()->to(\URL::previous());

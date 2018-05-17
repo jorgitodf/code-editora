@@ -28,10 +28,10 @@ class CategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        //$users = Category::query()->paginate(6);
+        //$category = Category::query()->paginate(6);
         $search = $request->get('search');
         $categories = $this->repository->paginate(6);
-        return view('codeedubook::users.index', compact('categories','search'));
+        return view('codeedubook::categories.index', compact('categories','search'));
     }
 
     /**
@@ -41,7 +41,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('codeedubook::users.create');
+        return view('codeedubook::categories.create');
     }
 
     /**
@@ -54,7 +54,7 @@ class CategoriesController extends Controller
     {
         //Category::create($request->all());
         $this->repository->create($request->all());
-        $url = $request->get('redirect_to', route('users.index'));
+        $url = $request->get('redirect_to', route('categories.index'));
         $request->session()->flash('message', 'Categoria Cadastrada com Sucesso!');
         return redirect()->to($url);
 
@@ -81,7 +81,7 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $category = $this->repository->find($id);
-        return view('codeedubook::users.edit', compact('category'));
+        return view('codeedubook::categories.edit', compact('category'));
     }
 
     /**
@@ -97,7 +97,7 @@ class CategoriesController extends Controller
         //$category->fill($request->all());
         //$category->save();
         $this->repository->update($request->all(), $id);
-        $url = $request->get('redirect_to', route('users.index'));
+        $url = $request->get('redirect_to', route('category.index'));
         $request->session()->flash('message', 'Categoria Alterada com Sucesso!');
         return redirect()->to($url);
     }

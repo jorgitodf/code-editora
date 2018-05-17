@@ -3,12 +3,16 @@
 namespace CodeEduUser\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements TableInterface
 {
     use Notifiable;
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'name', 'email', 'password',
@@ -18,9 +22,9 @@ class User extends Authenticatable implements TableInterface
         'password', 'remember_token',
     ];
 
-    public static function generatePassword()
+    public static function generatePassword($password = null)
     {
-        return bcrypt(str_random(8));
+        return !$password ? bcrypt(str_random(8)) : bcrypt($password);
     }
 
     /**
