@@ -70,6 +70,9 @@ php artisan module:route-provider
 
 php artisan vendor:publish --provider="CodeEduUser\Providers\CodeEduUserServiceProvider" --tag=config --force
 
+php artisan vendor:publish --tag=laravel-notifications
+//publicação das views de reset de senha
+
 {!! Html::openFormGroup('user_id', $errors) !!}
 {!! Form::label('user_id', 'Autor', ['class' => 'control-label']) !!}
 {!! Form::text('user_id', null, ['class' => 'form-control']) !!}
