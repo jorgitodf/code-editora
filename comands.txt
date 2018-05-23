@@ -73,6 +73,8 @@ php artisan vendor:publish --provider="CodeEduUser\Providers\CodeEduUserServiceP
 php artisan vendor:publish --tag=laravel-notifications
 //publicação das views de reset de senha
 
+ php artisan vendor:publish --provider="CodeEduUser\Providers\CodeEduUserServiceProvider" --tag=migrations
+
 {!! Html::openFormGroup('user_id', $errors) !!}
 {!! Form::label('user_id', 'Autor', ['class' => 'control-label']) !!}
 {!! Form::text('user_id', null, ['class' => 'form-control']) !!}
@@ -88,3 +90,160 @@ php artisan vendor:publish --tag=laravel-notifications
         return [
 
         ];
+
+
+
+
+    public function rolesPermissions()
+    {
+        echo auth()->user()->name;
+        echo "<br>";
+
+        foreach(auth()->user()->roles as $role)
+        {
+            echo $role->name;
+            echo "<br>";
+            $permissions = $role->permissions;
+            foreach($permissions as $permission)
+            {
+                echo $permission->name;
+                echo "<br>";
+            }
+        }
+    }
+
+
+
+$  php artisan tinker
+ Psy Shell v0.8.18 (PHP 7.1.6 — cli) by Justin Hileman
+New version is available (current: v0.8.18, latest: v0.9.4)
+>>> $user = \CodeEduUser\Models\User::find(1);
+=> CodeEduUser\Models\User {#1092
+     id: 1,
+     name: "Aric Schimmel",
+     email: "jorgitodf06@gmail.com",
+     created_at: "2018-05-17 18:56:46",
+     updated_at: "2018-05-18 12:30:33",
+     verified: 1,
+     verification_token: null,
+     deleted_at: null,
+   }
+>>> $roleAdmin = \CodeEduUser\Models\Role::create(['name' => 'Admin']);
+=> CodeEduUser\Models\Role {#1084
+     name: "Admin",
+     updated_at: "2018-05-23 17:16:09",
+     created_at: "2018-05-23 17:16:09",
+     id: 1,
+   }
+>>> $roleClient = \CodeEduUser\Models\Role::create(['name' => 'Client']);
+=> CodeEduUser\Models\Role {#1067
+     name: "Client",
+     updated_at: "2018-05-23 17:16:29",
+     created_at: "2018-05-23 17:16:29",
+     id: 2,
+   }
+>>> $user->roles()->save($roleClient);
+=> CodeEduUser\Models\Role {#1067
+     name: "Client",
+     updated_at: "2018-05-23 17:16:29",
+     created_at: "2018-05-23 17:16:29",
+     id: 2,
+   }
+>>> $user->roles;
+=> Illuminate\Database\Eloquent\Collection {#1081
+     all: [
+       CodeEduUser\Models\Role {#1087
+         id: 2,
+         name: "Client",
+         description: null,
+         created_at: "2018-05-23 17:16:29",
+         updated_at: "2018-05-23 17:16:29",
+         pivot: Illuminate\Database\Eloquent\Relations\Pivot {#1090
+           user_id: 1,
+           role_id: 2,
+         },
+       },
+     ],
+   }
+>>> $user->hasRole('Client');
+$user->roles;
+
+
+$  php artisan tinker
+ Psy Shell v0.8.18 (PHP 7.1.6 — cli) by Justin Hileman
+New version is available (current: v0.8.18, latest: v0.9.4)
+>>> $user->hasRole('Client');
+PHP Notice:  Undefined variable: user on line 1
+>>> $user->roles;
+PHP Notice:  Undefined variable: user on line 1
+>>> $user = \CodeEduUser\Models\User::find(1);
+=> CodeEduUser\Models\User {#1094
+     id: 1,
+     name: "Aric Schimmel",
+     email: "jorgitodf06@gmail.com",
+     created_at: "2018-05-17 18:56:46",
+     updated_at: "2018-05-18 12:30:33",
+     verified: 1,
+     verification_token: null,
+     deleted_at: null,
+   }
+>>> $user->roles;
+=> Illuminate\Database\Eloquent\Collection {#1082
+     all: [
+       CodeEduUser\Models\Role {#1085
+         id: 2,
+         name: "Client",
+         description: null,
+         created_at: "2018-05-23 17:16:29",
+         updated_at: "2018-05-23 17:16:29",
+         pivot: Illuminate\Database\Eloquent\Relations\Pivot {#1086
+           user_id: 1,
+           role_id: 2,
+         },
+       },
+     ],
+   }
+>>>  $user->hasRole('Client');
+=> true
+>>> $collection = new Illuminate\Database\Eloquent\Collection([$roleClient, $roleAdmin]);
+PHP Notice:  Undefined variable: roleClient on line 1
+>>> $roleAdmin = \CodeEduUser\Models\Role::create(['name' => 'Admin']);
+=> CodeEduUser\Models\Role {#1092
+     name: "Admin",
+     updated_at: "2018-05-23 17:24:24",
+     created_at: "2018-05-23 17:24:24",
+     id: 3,
+   }
+>>> $roleClient = \CodeEduUser\Models\Role::create(['name' => 'Client']);
+=> CodeEduUser\Models\Role {#1091
+     name: "Client",
+     updated_at: "2018-05-23 17:24:29",
+     created_at: "2018-05-23 17:24:29",
+     id: 4,
+   }
+>>> $collection = new Illuminate\Database\Eloquent\Collection([$roleClient, $roleAdmin]);
+=> Illuminate\Database\Eloquent\Collection {#1098
+     all: [
+       CodeEduUser\Models\Role {#1091
+         name: "Client",
+         updated_at: "2018-05-23 17:24:29",
+         created_at: "2018-05-23 17:24:29",
+         id: 4,
+       },
+       CodeEduUser\Models\Role {#1092
+         name: "Admin",
+         updated_at: "2018-05-23 17:24:24",
+         created_at: "2018-05-23 17:24:24",
+         id: 3,
+       },
+     ],
+   }
+>>> $user->hasRole($collection);
+=> 0
+>>> $user->hasRole($collection);
+=> 0
+>>> $user->hasRole($collection);
+=> 0
+>>> $user->hasRole($collection);
+=> 0
+>>>

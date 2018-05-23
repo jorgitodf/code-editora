@@ -56,4 +56,18 @@ class User extends Authenticatable implements TableInterface
         }
         return $this->$header;
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * @param Collection|$role
+     * @return boolean
+     */
+    public function hasRole($role)
+    {
+        return is_string($role) ? $this->roles->contains('name', $role) : (boolean) $role->intersect($this->roles)->count();
+    }
 }
