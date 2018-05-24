@@ -1,4 +1,4 @@
-@extends('codeedubook::layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
 
             {!! Form::open(['route' => 'books.store', 'class' => 'form']) !!}
 
-                @include('codeedubook::books._form')
+                @include('books._form')
 
             {!! Html::openFormGroup() !!}
                 {!! Button::primary('Criar Livro')->submit() !!}

@@ -17,7 +17,8 @@
         <div class="row">
 
             {!!
-                Table::withContents($books->items())->striped()->condensed()->bordered()->callback('Ações', function($field, $book) {
+                Table::withContents($books->items())->striped()->condensed()->bordered()
+                ->callback('Ações', function($field, $book) {
                 $deleteForm = "delete-form-{$book->id}";
                 $form = Form::open(['route' => ['books.destroy', 'book' => $book->id], 'method' => 'DELETE',
                 'id' => $deleteForm, 'style' => 'display:none']).

@@ -15,7 +15,7 @@ class AddSoftDeleteToBooks extends Migration
     {
         Schema::table('books', function (Blueprint $table) {
             $table->softDeletes();
-    });
+        });
     }
 
     /**

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use CodeEduUser\Models\User;
 
 class CreateUsersData extends Migration
 {
@@ -13,10 +14,10 @@ class CreateUsersData extends Migration
      */
     public function up()
     {
-        \CodeEduUser\Models\User::create([
+        User::create([
             'name' => config('codeeduuser.user_default.name'),
             'email' => config('codeeduuser.user_default.email'),
-            'password' => config('codeeduuser.user_default.password'),
+            'password' => bcrypt(config('codeeduuser.user_default.password')),
             'verified' => true
         ]);
     }
@@ -28,7 +29,7 @@ class CreateUsersData extends Migration
      */
     public function down()
     {
-        $user = \CodeEduUser\Models\User::where('email', config('codeeduuser.user_default.email'))->first();
+        $user = User::where('email', config('codeeduuser.user_default.email'))->first();
         $user->forceDelete();
     }
 }

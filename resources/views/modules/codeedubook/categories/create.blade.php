@@ -1,4 +1,4 @@
-@extends('codeedubook::layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
 
             {!! Form::open(['route' => 'users', 'class' => 'form']) !!}
 
-                @include('users')
+                @include('categories._form')
 
             {!! Html::openFormGroup() !!}
                 {!! Button::primary('Criar Categoria')->submit() !!}
