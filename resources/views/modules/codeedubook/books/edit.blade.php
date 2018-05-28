@@ -1,4 +1,4 @@
-@extends('resources.views.layouts.app')
+@extends('layouts.app')
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             {!! Form::model($book, ['route' => ['books.update', 'book' => $book->id], 'class' => 'form',
                 'method' => 'PUT']) !!}
 
-            @include('books._form')
+            @include('modules.codeedubook.books._form')
 
             {!! Html::openFormGroup() !!}
                 {!! Button::primary('Salvar Livro')->submit() !!}

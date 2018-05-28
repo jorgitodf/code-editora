@@ -14,12 +14,14 @@ class CreateUsersData extends Migration
      */
     public function up()
     {
+        \Illuminate\Database\Eloquent\Model::unguard();
         User::create([
             'name' => config('codeeduuser.user_default.name'),
             'email' => config('codeeduuser.user_default.email'),
             'password' => bcrypt(config('codeeduuser.user_default.password')),
             'verified' => true
         ]);
+        \Illuminate\Database\Eloquent\Model::reguard();
     }
 
     /**
@@ -29,7 +31,9 @@ class CreateUsersData extends Migration
      */
     public function down()
     {
+        \Schema::disableForeignKeyConstraints();
         $user = User::where('email', config('codeeduuser.user_default.email'))->first();
         $user->forceDelete();
+        \Schema::enableForeignKeyConstraints();
     }
 }
