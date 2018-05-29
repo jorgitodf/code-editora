@@ -19,4 +19,19 @@ class Role extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function getTableHeaders()
+    {
+        return ['Id', 'Nome'];
+    }
+
+    public function getValueForHeader($header)
+    {
+        switch ($header) {
+            case 'Id':
+                return $this->id;
+            case 'Nome':
+                return $this->name;
+        }
+    }
 }
