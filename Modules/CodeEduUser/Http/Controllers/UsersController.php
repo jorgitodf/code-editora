@@ -4,6 +4,7 @@ namespace CodeEduUser\Http\Controllers;
 
 use CodeEduUser\Http\Requests\UserDeleteRequest;
 use CodeEduUser\Http\Requests\UserRequest;
+use CodeEduUser\Repositories\RoleRepository;
 use CodeEduUser\Repositories\UserRepository;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,16 @@ class UsersController extends Controller
      */
     private $repository;
 
-    public function __construct(UserRepository $repository)
+    /**
+     * @var \CodeEduUser\Repositories\RoleRepository
+     */
+    private $roleRepository;
+
+
+    public function __construct(UserRepository $repository, RoleRepository $roleRepository)
     {
         $this->repository = $repository;
+        $this->roleRepository = $roleRepository;
     }
 
 
@@ -42,7 +50,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('codeeduuser::users.create');
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        return view('codeeduuser::users.create', compact('roles'));
     }
 
     /**
@@ -78,11 +87,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //public function edit(User $user)
     public function edit($id)
     {
         $user = $this->repository->find($id);
-        return view('codeeduuser::users.edit', compact('user'));
+        $roles = $this->roleRepository->all()->pluck('name', 'id');
+        return view('codeeduuser::users.edit', compact('user', 'roles'));
     }
 
     /**

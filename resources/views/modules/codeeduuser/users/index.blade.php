@@ -27,8 +27,11 @@
                     ->asLinkTo(route('codeeduuser.users.destroy', ['user' => $user->id]))
                     ->addAttributes(['onclick' => "event.preventDefault();document.getElementById(\"{$deleteForm}\").submit();"
                     ]);
-                $anchorFlag = '<a href="#" title="Não é possível Excluir o próprio Usuário">Excluir</a>';
-                $anchorDestroy = $user->id == Auth::user()->id ? $anchorFlag : $anchorDestroy;
+                //$anchorFlag = '<a href="#" title="Não é possível Excluir o próprio Usuário">Excluir</a>';
+
+                if ($user->id == \Auth::user()->id) {
+                    $anchorDestroy->disable();
+                }
                 return "<ul class=\"list-inline\">".
                                 "<li>".Button::link('Editar')->asLinkTo(route('codeeduuser.users.edit', ['user' => $user->id]))."</li>" .
                                 "<li>|</li>".

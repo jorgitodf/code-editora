@@ -27,7 +27,8 @@ class UserRequest extends FormRequest
         //$id = $category ? $category->id:NULL;
         return [
             'name' => "required|max:255",
-            'email' => "required|max:200|unique:users,email,$id"
+            'email' => "required|max:200|unique:users,email,$id",
+            'roles.*' => 'exists:roles,id'
         ];
     }
 
