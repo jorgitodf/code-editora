@@ -2,8 +2,11 @@
 
 namespace CodeEduUser\Http\Controllers;
 
-use Illuminate\Database\QueryException;
+use CodeEduUser\Http\Requests\RoleDeleteRequest;
+use CodeEduUser\Http\Requests\RoleRequest;
+use CodeEduUser\Repositories\RoleRepository;
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 
 class RolesController extends Controller
 {

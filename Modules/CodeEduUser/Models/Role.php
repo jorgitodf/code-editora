@@ -3,8 +3,9 @@
 namespace CodeEduUser\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Bootstrapper\Interfaces\TableInterface;
 
-class Role extends Model
+class Role extends Model implements TableInterface
 {
     protected $fillable = [
         'name', 'description'
@@ -22,7 +23,7 @@ class Role extends Model
 
     public function getTableHeaders()
     {
-        return ['Id', 'Nome'];
+        return ['Id', 'Nome', 'Descrição'];
     }
 
     public function getValueForHeader($header)
@@ -32,6 +33,8 @@ class Role extends Model
                 return $this->id;
             case 'Nome':
                 return $this->name;
+            case 'Descrição':
+                return $this->description;
         }
     }
 }
